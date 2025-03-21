@@ -1,16 +1,19 @@
 :80 {
   root * /srv
 
-  # First, handle API requests
-  @api path /api/*
+  # Handle API requests first with higher priority
+  @api {
+    path_regexp api ^/api/.*
+  }
   reverse_proxy @api nxtime-api:8000
 
-  # Then serve the Angular app
+  # Then handle static files
   file_server
-  try_files {path} /index.html
 
-  log {
-    output stdout
-    level DEBUG
+  # Finally, for any path not found, serve index.html
+  @notFound {
+    not file
+    not path /api/*
   }
+  rewrite @notFound /index.html
 }
