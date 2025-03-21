@@ -1,0 +1,5 @@
+{
+  "watch": ["src/**/*.gleam"],
+  "ext": "gleam",
+  "exec": "gleam run"
+}

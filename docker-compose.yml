@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  nxtime-app:
+    build: .
+    container_name: nxtime-app
+    networks:
+      - nxtime_network
+    ports:
+      - "3000:80"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+    depends_on:
+      - nxtime-api
+
+  nxtime-api:
+    build: nxtime_server
+    container_name: nxtime-api
+    networks:
+      - nxtime_network
+    ports:
+      - "3001:8000"
+
+networks:
+  nxtime_network:
+    driver: bridge
+
