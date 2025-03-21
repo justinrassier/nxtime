@@ -1,1 +1,19 @@
-<div class="bg-slate-300">home</div>
+<div class="grid grid-rows-[auto_1fr_auto] h-full">
+  <div></div>
+  <div
+    class="bg-white w-full max-w-xl overflow-scroll-helper gap-8 justify-center justify-self-center"
+  >
+    @for( day of days; track day){
+    <button
+      (click)="handleClick(day)"
+      class="text-6xl font-bold text-center relative"
+    >
+      @if(day === selectedDay()){
+      <app-circle class="absolute -translate-x-10 -translate-y-12" />
+      }
+      {{ day }}
+    </button>
+    }
+  </div>
+  <div></div>
+</div>

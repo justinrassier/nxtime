@@ -2,4 +2,23 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  font-family: Helvetica, sans-serif;
+}
+html,
+body {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow: hidden;
+}
+
+.overflow-scroll-helper {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow: hidden;
+}
+
 /* You can add global styles to this file, and also import other style files */
