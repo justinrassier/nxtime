@@ -47,7 +47,7 @@ export const Store = signalStore(
       font-size: clamp(1rem, 5vh, 4rem);
     }
     .main {
-      row-gap: clamp(1rem, 2vh, 1.5rem);
+      row-gap: clamp(1rem, 3vh, 1.5rem);
     }
     .vertical-text {
       writing-mode: vertical-rl;
