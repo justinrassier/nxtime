@@ -2,16 +2,16 @@
   <div></div>
   <div
     class="bg-white w-full max-w-xl overflow-scroll-helper gap-8 justify-center justify-self-center"
+    appSwipe
+    (swipe)="handleSwipe($event)"
   >
-    @for( day of days; track day){
-    <button
-      (click)="handleClick(day)"
-      class="text-6xl font-bold text-center relative"
-    >
-      @if(day === selectedDay()){
+    @for( day of store.days(); track day){
+    <button class="text-5xl font-bold text-center relative">
+      @if(day.dayofWeek === selectedDay()){
       <app-circle class="absolute -translate-x-10 -translate-y-12" />
       }
-      {{ day }}
+      {{ day.dayofWeek }}
+      <div class="text-sm">{{ day.date | date }}</div>
     </button>
     }
   </div>

@@ -1,6 +1,38 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { CircleComponent } from './circle.component';
-import { HttpClient } from '@angular/common/http';
+import { addDays, getWeekDataFromDate } from '@nxtime/util';
+import { DatePipe } from '@angular/common';
+import {
+  patchState,
+  signalStore,
+  withComputed,
+  withMethods,
+  withState,
+} from '@ngrx/signals';
+import { from } from 'rxjs';
+import { SwipeDirective } from './swipe.directive';
+
+type State = {
+  anchorDate: Date;
+};
+
+const initialState: State = {
+  anchorDate: new Date(),
+};
+
+export const Store = signalStore(
+  withState(initialState),
+  withMethods((store) => ({
+    swipe: (direction: 'left' | 'right') => {
+      patchState(store, (state) => ({
+        anchorDate: addDays(state.anchorDate, direction === 'left' ? 7 : -7),
+      }));
+    },
+  })),
+  withComputed(({ anchorDate }) => ({
+    days: computed(() => getWeekDataFromDate(anchorDate())),
+  }))
+);
 
 @Component({
   standalone: true,
@@ -9,19 +41,14 @@ import { HttpClient } from '@angular/common/http';
   host: {
     class: 'overflow-scroll-helper',
   },
-  imports: [CircleComponent],
+  imports: [CircleComponent, DatePipe, SwipeDirective],
+  providers: [Store],
 })
-export class HomeComponent implements OnInit {
-  public days = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
+export class HomeComponent {
+  public store = inject(Store);
   selectedDay = signal('MON');
-  httpClient = inject(HttpClient);
 
-  public handleClick(day: string) {
-    this.selectedDay.set(day);
-  }
-
-  ngOnInit(): void {
-    console.log('here');
-    this.httpClient.get('/api/people').subscribe(console.log);
+  public handleSwipe(direction: 'right' | 'left') {
+    this.store.swipe(direction);
   }
 }
