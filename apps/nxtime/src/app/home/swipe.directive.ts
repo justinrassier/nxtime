@@ -7,6 +7,7 @@ import {
   pairwise,
   takeUntil,
   tap,
+  take,
 } from 'rxjs';
 
 @Directive({
@@ -38,10 +39,11 @@ export class SwipeDirective implements OnInit {
             }),
             filter(({ deltaX, deltaY }) => Math.abs(deltaX) > Math.abs(deltaY)), // Ensure horizontal swipe
             pairwise(), // Compare previous and current move event
-            filter(([prev, curr]) => Math.abs(curr.deltaX) > 50), // Min swipe threshold
+            filter(([prev, curr]) => Math.abs(curr.deltaX) > 8), // Min swipe threshold
             map(([_, curr]) =>
               curr.deltaX > 0 ? ('right' as const) : ('left' as const)
             ), // Determine direction
+            take(1),
             takeUntil(pointerUp$) // Stop tracking when pointer is lifted
           )
         )
