@@ -39,7 +39,7 @@ export class SwipeDirective implements OnInit {
             }),
             filter(({ deltaX, deltaY }) => Math.abs(deltaX) > Math.abs(deltaY)), // Ensure horizontal swipe
             pairwise(), // Compare previous and current move event
-            filter(([prev, curr]) => Math.abs(curr.deltaX) > 8), // Min swipe threshold
+            filter(([prev, curr]) => Math.abs(curr.deltaX) > 50), // Min swipe threshold
             map(([_, curr]) =>
               curr.deltaX > 0 ? ('right' as const) : ('left' as const)
             ), // Determine direction
