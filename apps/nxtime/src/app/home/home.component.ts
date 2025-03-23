@@ -9,7 +9,6 @@ import {
   withMethods,
   withState,
 } from '@ngrx/signals';
-import { from } from 'rxjs';
 import { SwipeDirective } from './swipe.directive';
 
 type State = {
