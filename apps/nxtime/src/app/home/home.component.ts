@@ -42,6 +42,11 @@ export const Store = signalStore(
   },
   imports: [CircleComponent, DatePipe, SwipeDirective],
   providers: [Store],
+  styles: `
+    .container {
+      font-size: clamp(1rem, 5vh, 3rem);
+      }
+  `,
 })
 export class HomeComponent {
   public store = inject(Store);
