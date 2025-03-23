@@ -44,8 +44,12 @@ export const Store = signalStore(
   providers: [Store],
   styles: `
     .container {
-      font-size: clamp(1rem, 5vh, 3rem);
-      }
+      font-size: clamp(1rem, 5vh, 4rem);
+    }
+    .main {
+      row-gap: clamp(1rem, 2vh, 1.5rem);
+    }
+
   `,
 })
 export class HomeComponent {
