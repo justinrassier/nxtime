@@ -49,6 +49,9 @@ export const Store = signalStore(
     .main {
       row-gap: clamp(1rem, 2vh, 1.5rem);
     }
+    .vertical-text {
+      writing-mode: vertical-rl;
+    }
 
   `,
 })

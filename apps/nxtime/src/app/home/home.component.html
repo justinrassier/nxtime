@@ -1,18 +1,24 @@
 <div class="grid grid-rows-[auto_1fr_auto] h-full container">
   <div></div>
   <div
-    class="main bg-white w-full max-w-xl overflow-scroll-helper justify-center justify-self-center"
+    class="main bg-white w-full max-w-xl overflow-scroll-helper justify-center justify-self-center items-center"
     appSwipe
     (swipe)="handleSwipe($event)"
   >
     @for( day of store.days(); track day){
-    <button class="font-bold text-center relative">
+    <div class="font-bold text-center relative">
       @if(day.dayofWeek === selectedDay()){
       <!-- <app-circle class="absolute -translate-x-10 -translate-y-12" /> -->
       }
-      {{ day.dayofWeek }}
-      <div class="text-sm">{{ day.date | date }}</div>
-    </button>
+      <div class="grid grid-cols-[auto_auto] items-center">
+        <div class="min-w-[97px]">
+          {{ day.dayofWeek }}
+        </div>
+        <div class="vertical-text text-sm">
+          {{ day.date | date : 'MMM dd' }}
+        </div>
+      </div>
+    </div>
     }
   </div>
   <div></div>
